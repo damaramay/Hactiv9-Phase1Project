@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       description: DataTypes.STRING,
       duration: DataTypes.INTEGER,
       categoryId: DataTypes.INTEGER,
+      pdfLink: DataTypes.STRING,
     },
     {
       sequelize,
