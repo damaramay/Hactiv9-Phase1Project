@@ -21,10 +21,57 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
-      userName: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
-      role: DataTypes.STRING,
+      userName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          notEmpty: {
+            msg: "Username is required",
+          },
+          notNull: {
+            msg: "Username is required",
+          },
+          isAlphanumeric: {
+            msg: "Username must be Alphanumeric",
+          },
+        },
+      },
+
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          notEmpty: {
+            msg: "Email is required",
+          },
+          notNull: {
+            msg: "Email is required",
+          },
+          isEmail: {
+            msg: "Email is wrong",
+          },
+        },
+      },
+
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          notEmpty: {
+            msg: "Password is required",
+          },
+          notNull: {
+            msg: "Password is required",
+          },
+        },
+      },
+
+      role: {
+        type: DataTypes.STRING,
+      },
     },
     {
       sequelize,
@@ -32,7 +79,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  User.beforeCreate((user, options) => {
+  User.beforeSave((user, options) => {
     if (user.role !== "admin" || user.role !== null) {
       user.role = "user";
     }

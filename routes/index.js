@@ -29,9 +29,11 @@ router.get("/login", Controller.login);
 router.post("/login", Controller.checkLogin);
 
 router.get("/profile", Controller.profile);
+router.post("/profile", Controller.updateProfile);
+router.get("/profile/create", Controller.createProfile);
+router.post("/profile/create", Controller.saveCreateProfile);
 
 router.get("/seeAllCourse", Controller.seeAllCourse);
-
 
 router.get("/userCourse", Controller.userCourse);
 
