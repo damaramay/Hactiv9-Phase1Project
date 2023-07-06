@@ -1,20 +1,42 @@
 const { Category, User, Profile, Course } = require("../models");
+const bcrypt = require("bcryptjs");
 
 class Controller {
   static home(req, res) {
-    res.render("home");
+    let { isAdmin, isUser, userId } = req.session;
+    Profile.findOne({ where: { userId } })
+      .then((data) => {
+        res.render("home", { data, isAdmin, isUser });
+      })
+      .catch((err) => res.send(err));
   }
 
   static login(req, res) {
-    res.render("login");
+    const { error } = req.query;
+    res.render("login", { error });
   }
 
   static checkLogin(req, res) {
     let { userName, password } = req.body;
-    User.findOne({ where: { userName, password } })
+    User.findOne({ where: { userName } })
       .then((data) => {
-        if (data === null) return res.redirect("/login");
-        res.send(data);
+        if (data) {
+          const isPasswordValid = bcrypt.compareSync(password, data.password);
+          if (isPasswordValid) {
+            req.session.role = data.dataValues.role;
+            req.session.userId = data.dataValues.id;
+            return res.redirect("/");
+          } else {
+            req.session.role = null;
+            req.session.userId = null;
+            const error = "Invalid password";
+            return res.redirect(`/login?error=${error}`);
+          }
+        }
+        req.session.role = null;
+        req.session.userId = null;
+        const error = `${userName} hasn't registered, Please register first`;
+        res.redirect(`/register?error=${error}`);
       })
       .catch((err) => {
         res.send(err);
@@ -22,7 +44,8 @@ class Controller {
   }
 
   static register(req, res) {
-    res.render("register");
+    const { error } = req.query;
+    res.render("register", { error });
   }
 
   static renderSaveRegister(req, res) {
@@ -44,11 +67,41 @@ class Controller {
   }
 
   static profile(req, res) {
-    res.render("profile");
+    let { isAdmin, isUser, userId } = req.session;
+    if (isAdmin || isUser) {
+      Profile.findOne({ where: { userId } })
+        .then((data) => {
+          console.log(data);
+          return res.render("profile", { data });
+        })
+        .catch((err) => {
+          res.send(err);
+        });
+    } else {
+      const error = "Please Login First";
+      return res.redirect(`/login?error=${error}`);
+    }
+    // isAdmin || isUser ? res.render("profile") : res.redirect("/login");
+    // res.render("profile");
   }
 
   static seeAllCourse(req, res) {
-    res.render("see-all-course");
+    let { isAdmin, isUser } = req.session;
+    Course.findAll({
+      attributes: ["name"],
+      include: { model: Category, attributes: ["name"] },
+    })
+      .then((data) => {
+        res.send(data);
+        // res.render("see_all_course", { isAdmin, isUser, data });
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  }
+
+  static userCourse(req, res) {
+    res.send('ini your course')
   }
 
   static contactUs(req, res) {
