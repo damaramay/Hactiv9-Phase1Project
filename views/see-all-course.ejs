@@ -1,11 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hactiv9 All Course</title>
-</head>
-<body>
-    <h1>This is Hactiv9 All Course Menu</h1>
-</body>
-</html>
+<%- include('./layouts/header.ejs') %>
+<%- include('./layouts/navbar.ejs') %>
+
+<h1>This is Hactiv9 All Course Menu</h1>
+
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
+
+<table>
+  <thead class="table-success">
+    <tr style="font-weight: 500;">
+        <td>Course Name</td>
+        <td>Category</td>
+        <td>Action</td>
+       
+    </tr>
+    <tr>
+    
+    </tr>
+    </thead>
+    
+  </table>
+
+<%- include('./layouts/footer.ejs') %>

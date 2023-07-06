@@ -47,9 +47,13 @@ class Controller {
     res.render("profile");
   }
 
-  static seeAllCourse(req, res) {
-    res.render("see-all-course");
-  }
+  static seeAllCourse(req,res){
+    Course.findAll()
+    .then(course => {
+    res.render('see-all-course')
+    })
+    .catch((err) => res.send(err))
+}
 
   static contactUs(req, res) {
     res.render("contact-us");
