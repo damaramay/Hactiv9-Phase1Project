@@ -6,7 +6,6 @@
     <title>Profile</title>
   </head>
   <body>
-
     <div>
       <a href="/"><h2>Home</h2></a>
     </div>
@@ -17,26 +16,34 @@
       <h1>Your Profile</h1>
 
       <label for="firstName">Firstname</label><br />
-      <input type="text" name="firstName" value="<%= data.firstName %>" 
-      placeholder="Firstname..." /><br />
+      <input
+        type="text"
+        name="firstName"
+        value="<%= data.firstName %>"
+        placeholder="Firstname..."
+      /><br />
 
       <label for="lastName">Lastname</label><br />
-      <input type="text" name="lastName" value="<%= data.lastName %>" 
-      placeholder="Lastname..." /><br />
+      <input
+        type="text"
+        name="lastName"
+        value="<%= data.lastName %>"
+        placeholder="Lastname..."
+      /><br />
 
       <label for="gender">Gender</label><br />
-      <select name="gender" form="profieForm">
+      <select name="gender" form="profileForm">
         <option value="">---SELECT---</option>
         <% gender.forEach((el) => { %>
-          <option value="<% el === data.gender ? 'Selected' : '' %>"> 
-            <%= el %>
+        <option value="<% el === data.gender ? Selected : '' %>">
+          <%= el %>
         </option>
-        <% }); %>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option></select
+        <% }); %></select
       ><br /><br />
 
-      <input type="submit" value="Update" />
+      <input type="submit" value="Update" /><br /><br />
     </form>
+
+    <a href="/logout"><button style="color: red">Logout</button></a>
   </body>
 </html>

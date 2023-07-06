@@ -42,6 +42,13 @@ class Controller {
       });
   }
 
+  static logout(req, res) {
+    req.session.destroy((err) => {
+      if (err) console.log(err);
+      else res.redirect("/");
+    });
+  }
+
   static register(req, res) {
     const { error } = req.query;
     res.render("register", { error });

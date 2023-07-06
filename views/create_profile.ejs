@@ -6,7 +6,6 @@
     <title>Profile</title>
   </head>
   <body>
-
     <div>
       <a href="/"><h2>Home</h2></a>
     </div>
@@ -23,12 +22,12 @@
       <input type="text" name="lastName" placeholder="Lastname..." /><br />
 
       <label for="gender">Gender</label><br />
-      <select name="gender" form="profieForm">
+      <select name="gender" form="profileForm">
         <option value="">---SELECT---</option>
         <% gender.forEach((el) => { %>
-          <option value="<%= el %>"> <%= el %></option>
+        <option value="<%= el %>"><%= el %></option>
         <% }); %>
-      ><br /><br />
+      </select><br /><br />
 
       <input type="submit" value="Submit" />
     </form>
