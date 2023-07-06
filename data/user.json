@@ -3,7 +3,7 @@
     "userName": "admin123",
     "email": "admin@admin.com",
     "password": "admin",
-    "role": "Admin"
+    "role": "admin"
   },
   {
     "userName": "user123",

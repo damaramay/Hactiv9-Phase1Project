@@ -1,7 +1,4 @@
 const { Category, User, Profile, Course } = require("../models");
-const bcrypt = require("bcryptjs");
-const { use } = require("../routes");
-const salt = bcrypt.genSaltSync(10);
 
 class Controller {
   static home(req, res) {
@@ -29,8 +26,6 @@ class Controller {
   }
 
   static renderSaveRegister(req, res) {
-    res.send(req.body);
-    // res.render("Home");
     let { userName, email, password, firstName, lastName, gender } = req.body;
     User.create({ userName, email, password })
       .then(() => {
@@ -38,13 +33,14 @@ class Controller {
       })
       .then((data) => {
         let userId = data.dataValues.id;
-        console.log(userId);
         return Profile.create({ firstName, lastName, gender, userId });
       })
       .then(() => {
         res.redirect("/login");
       })
-      .catch((err) => {});
+      .catch((err) => {
+        res.send(err);
+      });
   }
 
   static profile(req, res) {
