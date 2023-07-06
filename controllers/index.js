@@ -50,9 +50,25 @@ class Controller {
   static seeAllCourse(req,res){
     Course.findAll()
     .then(course => {
-    res.render('see-all-course')
+    res.send(course)
     })
     .catch((err) => res.send(err))
+}
+
+static allCategories(req,res){
+  Category.findAll()
+  .then(category => {
+  res.render('categories')
+  })
+  .catch((err) => res.send(err))
+}
+
+static editCategories(req,res){
+  res.render('edit_category')
+}
+
+static addCategories(req,res){
+  res.render('add_new_category')
 }
 
   static contactUs(req, res) {

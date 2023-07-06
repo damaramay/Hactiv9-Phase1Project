@@ -19,6 +19,13 @@ router.get("/profile", Controller.profile);
 router.get("/seeAllCourse", Controller.seeAllCourse);
 router.get("/seeAllCourse/detail/:id", Controller.seeAllCourse);
 
+router.get("/allCategories", Controller.seeAllCourse);
+router.get("/allCategories/edit", Controller.seeAllCourse);
+router.get("/allCategories/add", Controller.seeAllCourse);
+
+
+
+
 
 // router.get("/seeAllCourse/admin", Controller.home);
 // router.get("/seeAllCourse/user", Controller.home);
