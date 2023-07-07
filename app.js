@@ -10,15 +10,10 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
-    secret: "s3Cur3",
-    name: "sessionId",
-    cookie: {
-      secure: true,
-      httpOnly: true,
-      domain: "example.com",
-      path: "foo/bar",
-      expires: expiryDate,
-    },
+    secret: "S3Cur3",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, sameSite: true },
   })
 );
 app.use(require("./routes"));

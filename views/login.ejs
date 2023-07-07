@@ -1,6 +1,25 @@
 <%- include('./layouts/header.ejs') %>
 <%- include('./layouts/navbar.ejs') %>
 
+
+    <h1>This is Login Page</h1>
+    <% if (error) %> <h3 style="color: red;"><%= error %></h3>
+    <form action="/login" method="post">
+      <label for="userName">Username</label><br />
+      <input type="text" name="userName" placeholder="Username..." /><br />
+
+      <label for="password">Password</label><br />
+      <input
+        type="password"
+        name="password"
+        placeholder="password..."
+      /><br /><br />
+
+      <input type="submit" value="Login" />
+    </form>
+  </body>
+</html>
+
 <h1>This is Login Page</h1>
 <form action="/login" method="post">
   <label for="userName">Username</label><br />
@@ -17,3 +36,4 @@
 </form>
 
 <%- include('./layouts/footer.ejs') %>
+
