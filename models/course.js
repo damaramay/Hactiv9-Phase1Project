@@ -50,6 +50,9 @@ module.exports = (sequelize, DataTypes) => {
           notNull: {
             msg: "Course Name is required",
           },
+          isAlpha: {
+            msg: "Description must be alphabet",
+          },
         },
       },
 
@@ -62,6 +65,9 @@ module.exports = (sequelize, DataTypes) => {
           },
           notNull: {
             msg: "Description is required",
+          },
+          isAlpha: {
+            msg: "Description must be alphabet",
           },
         },
       },
@@ -76,6 +82,9 @@ module.exports = (sequelize, DataTypes) => {
           notNull: {
             msg: "Duration is required",
           },
+          isNumeric: {
+            msg: "Duration must be numeric",
+          },
         },
       },
 
@@ -88,6 +97,9 @@ module.exports = (sequelize, DataTypes) => {
           },
           notNull: {
             msg: "Category Id is required",
+          },
+          isNumeric: {
+            msg: "Category Id must be numeric",
           },
         },
       },

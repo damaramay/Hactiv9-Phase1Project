@@ -145,13 +145,11 @@ class Controller {
     };
     Course.findOne(options)
       .then((data) => {
-        // res.send(data)
         res.render("see-detail", { data, isUser });
       })
       .catch((err) => {
         res.send(err);
       });
-    // res.send("detail course user");
   }
 
   static addCourse(req, res) {
@@ -159,12 +157,12 @@ class Controller {
   }
 
   static editCourse(req, res) {
-    let id = req.params.id;
     res.send("edit course admin");
   }
 
   static renderEditCourse(req, res) {
     let id = req.params.id;
+    console.log(req.params);
     res.send("edit course admin");
   }
 
@@ -174,11 +172,26 @@ class Controller {
   }
 
   static addNewCourse(req, res) {
-    res.send("add new course admin");
+    Category.findAll()
+    .then((data) => {
+      res.render('add-new-course', {data})
+    })
+    .catch((err)=>{
+      res.send(err.errors.map((el) => el.message))
+    })
   }
 
   static renderAddNewCourse(req, res) {
-    res.send("add new course admin");
+    let {name, description, duration, pdfLink, categoryId} = req.body;
+
+    Course.create({ name, description, duration, categoryId, pdfLink })
+    .then(() => {
+      res.redirect("/course/all");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err.errors.map((el) => el.message));
+    })
   }
 
   static addNewCategory(req, res) {
