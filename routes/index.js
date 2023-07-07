@@ -19,9 +19,6 @@ router.use(function (req, res, next) {
 router.get("/", Controller.home);
 router.get("/home", Controller.home);
 
-// router.get("/home/admin", Controller.home);
-// router.get("/home/user", Controller.home);
-
 router.get("/register", Controller.register);
 router.post("/register", Controller.renderSaveRegister);
 
@@ -36,9 +33,27 @@ router.post("/profile/create", Controller.saveCreateProfile);
 
 router.get("/logout", Controller.logout);
 
-router.get("/seeAllCourse", Controller.seeAllCourse);
+router.get("/course/all", Controller.seeAllCourse);
 
-router.get("/userCourse", Controller.userCourse);
+router.get("/course/user/:id", Controller.userCourse);
+
+router.get("/course/detail/:id", Controller.seeDetail);
+
+router.get("/course/add/:id", Controller.addCourse);
+
+router.get("/course/edit/:id", Controller.editCourse);
+router.post("/course/edit/:id", Controller.renderEditCourse);
+
+router.get("/course/delete/:id", Controller.deleteCourse);
+
+router.get("/course/admin/add", Controller.addNewCourse);
+router.post("/course/admin/add", Controller.renderAddNewCourse);
+
+router.get("/category/admin/add", Controller.addNewCategory);
+router.post("/category/admin/add", Controller.renderAddNewCategory);
+
+router.get("/category/admin/edit", Controller.editCategory);
+router.post("/category/admin/edit", Controller.renderEditCategory);
 
 // router.get("/seeAllCourse/admin", Controller.home);
 // router.get("/seeAllCourse/user", Controller.home);

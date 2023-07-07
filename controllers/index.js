@@ -3,8 +3,8 @@ const bcrypt = require("bcryptjs");
 
 class Controller {
   static home(req, res) {
-    let { isAdmin, isUser, userName } = req.session;
-    res.render("home", { userName, isAdmin, isUser });
+    let { isAdmin, isUser, userName, userId } = req.session;
+    res.render("home", { userName, isAdmin, isUser, userId });
   }
 
   static login(req, res) {
@@ -115,21 +115,86 @@ class Controller {
 
   static seeAllCourse(req, res) {
     let { isAdmin, isUser } = req.session;
-    Course.findAll({
-      attributes: ["name"],
-      include: { model: Category, attributes: ["name"] },
-    })
+    let { search } = req.query;
+    let categoryList;
+    Category.categoryList()
       .then((data) => {
-        res.send(data);
-        // res.render("see_all_course", { isAdmin, isUser, data });
+        categoryList = data;
+        return Course.getCourseByCategory(search);
+      })
+      .then((data) => {
+        res.render("see-all-course", { isAdmin, isUser, data, categoryList });
       })
       .catch((err) => {
-        res.send(err.errors.map((el) => el.message));
+        console.log(err);
+        res.send(err);
       });
   }
 
   static userCourse(req, res) {
+    let id = req.params.id;
     res.send("ini your course");
+  }
+
+  static seeDetail(req, res) {
+    let { isUser } = req.session;
+    let id = req.params.id;
+    let options = {
+      where: { id },
+      include: { model: Category, attributes: ["name"] },
+    };
+    Course.findOne(options)
+      .then((data) => {
+        // res.send(data)
+        res.render("see-detail", { data, isUser });
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+    // res.send("detail course user");
+  }
+
+  static addCourse(req, res) {
+    res.send("add course user");
+  }
+
+  static editCourse(req, res) {
+    let id = req.params.id;
+    res.send("edit course admin");
+  }
+
+  static renderEditCourse(req, res) {
+    let id = req.params.id;
+    res.send("edit course admin");
+  }
+
+  static deleteCourse(req, res) {
+    let id = req.params.id;
+    res.send("delete course admin");
+  }
+
+  static addNewCourse(req, res) {
+    res.send("add new course admin");
+  }
+
+  static renderAddNewCourse(req, res) {
+    res.send("add new course admin");
+  }
+
+  static addNewCategory(req, res) {
+    res.send("add new category adminv");
+  }
+
+  static renderAddNewCategory(req, res) {
+    res.send("add new category adminv");
+  }
+
+  static editCategory(req, res) {
+    res.send("edit category admin");
+  }
+
+  static renderEditCategory(req, res) {
+    res.send("edit category admin");
   }
 
   static contactUs(req, res) {

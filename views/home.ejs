@@ -10,21 +10,22 @@
       <% if(!isAdmin && !isUser) { %>
       <a href="/login"><h2>Login</h2></a>
       <a href="/register"><h2>Register</h2></a>
-      <% } %> <% if(isAdmin || isUser) { %>
+      <% } else if(isAdmin || isUser) { %>
       <a href="/"><h2>Home</h2></a>
       <% } %>
 
       <a href="/profile"><h2>Profile</h2></a>
     </div>
+
     <h1>This is Hactiv9 Home</h1>
     <% if(userName != null) { %>
     <p>Halo!!! <%= userName %></p>
     <% } %>
 
     <div>
-      <a href="/seeAllCourse"><p>See all Courses</p></a>
+      <a href="/course/all"><p>See all Courses</p></a>
       <% if(isUser) { %>
-      <a href="/userCourse"><p>Your Courses</p></a>
+      <a href="/course/user/<%= userId %>"><p>Your Courses</p></a>
       <% } %>
       <a href="/contactUs"><p>contact us</p></a>
     </div>

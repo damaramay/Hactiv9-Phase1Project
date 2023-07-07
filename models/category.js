@@ -9,12 +9,27 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Category.hasMany(models.Course);
+      Category.hasMany(models.Course, { foreignKey: "categoryId" });
+    }
+
+    static categoryList() {
+      return Category.findAll({attributes: ["name"]});
     }
   }
   Category.init(
     {
-      name: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: 'Category is required'
+          },
+          notNull: {
+            msg: 'Category is required'
+          }
+        } 
+      },
     },
     {
       sequelize,

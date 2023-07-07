@@ -35,7 +35,7 @@
       <select name="gender" form="profileForm">
         <option value="">---SELECT---</option>
         <% gender.forEach((el) => { %>
-        <option value="<% el === data.gender ? Selected : '' %>">
+        <option value="<%= el %>" <%= el === data.gender ? 'selected' : '' %>>
           <%= el %>
         </option>
         <% }); %></select

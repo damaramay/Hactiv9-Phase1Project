@@ -1,5 +1,5 @@
 "use strict";
-const { Model } = require("sequelize");
+const { Model, Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Course extends Model {
     /**
@@ -15,14 +15,95 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "courseId",
       });
     }
+
+    static getCourseByCategory(search) {
+      let options;
+
+      if (search) {
+        options = {
+          attributes: ["name", "id"],
+          include: {
+            association: "Category",
+            attributes: ["name"],
+            where: { name: { [Op.iLike]: search } },
+          },
+        };
+      } else {
+        options = {
+          attributes: ["name", "id"],
+          include: { association: "Category", attributes: ["name"] },
+        };
+      }
+
+      return Course.findAll(options);
+    }
   }
   Course.init(
     {
-      name: DataTypes.STRING,
-      description: DataTypes.STRING,
-      duration: DataTypes.INTEGER,
-      categoryId: DataTypes.INTEGER,
-      pdfLink: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Course Name is required",
+          },
+          notNull: {
+            msg: "Course Name is required",
+          },
+        },
+      },
+
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Description is required",
+          },
+          notNull: {
+            msg: "Description is required",
+          },
+        },
+      },
+
+      duration: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Duration is required",
+          },
+          notNull: {
+            msg: "Duration is required",
+          },
+        },
+      },
+
+      categoryId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Category Id is required",
+          },
+          notNull: {
+            msg: "Category Id is required",
+          },
+        },
+      },
+
+      pdfLink: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Pdf Link is required",
+          },
+          notNull: {
+            msg: "Pdf Link is required",
+          },
+        },
+      },
     },
     {
       sequelize,
