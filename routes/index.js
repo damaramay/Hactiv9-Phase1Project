@@ -52,8 +52,21 @@ router.post("/course/admin/add", Controller.renderAddNewCourse);
 router.get("/category/admin/add", Controller.addNewCategory);
 router.post("/category/admin/add", Controller.renderAddNewCategory);
 
+
 router.get("/category/admin/edit", Controller.editCategory);
 router.post("/category/admin/edit", Controller.renderEditCategory);
+
+router.get("/seeAllCourse", Controller.seeAllCourse);
+router.get("/seeAllCourse/detail/:id", Controller.seeAllCourse);
+
+router.get("/allCategories", Controller.seeAllCourse);
+router.get("/allCategories/edit", Controller.seeAllCourse);
+router.get("/allCategories/add", Controller.seeAllCourse);
+
+
+
+
+
 
 // router.get("/seeAllCourse/admin", Controller.home);
 // router.get("/seeAllCourse/user", Controller.home);

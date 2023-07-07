@@ -136,6 +136,7 @@ class Controller {
     res.send("ini your course");
   }
 
+
   static seeDetail(req, res) {
     let { isUser } = req.session;
     let id = req.params.id;
@@ -209,6 +210,31 @@ class Controller {
   static renderEditCategory(req, res) {
     res.send("edit category admin");
   }
+
+  static seeAllCourse(req,res){
+    Course.findAll()
+    .then(course => {
+    res.send(course)
+    })
+    .catch((err) => res.send(err))
+}
+
+static allCategories(req,res){
+  Category.findAll()
+  .then(category => {
+  res.render('categories')
+  })
+  .catch((err) => res.send(err))
+}
+
+static editCategories(req,res){
+  res.render('edit_category')
+}
+
+static addCategories(req,res){
+  res.render('add_new_category')
+}
+
 
   static contactUs(req, res) {
     res.render("contact-us");
